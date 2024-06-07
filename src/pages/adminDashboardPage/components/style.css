@@ -1,0 +1,25 @@
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+  }
+  
+  th, td {
+    padding: 8px;
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light grey background for even rows */
+}
+  th {
+    background-color: #f2f2f2;
+  }
+  input,select {
+    border: 0px solid black;
+    background-color: transparent;
+  }
+
+  input:focus,select:focus {
+    border: 0px solid black;
+    outline: none;
+  }tr:last-child td:last-child {
+    border-bottom: none !important;
+  }

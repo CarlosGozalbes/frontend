@@ -1,0 +1,50 @@
+.htmlbody{
+   
+    height: 650vh;
+    overflow: auto;
+    
+}
+
+.slider {
+   
+    padding-bottom: 150rem;
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate3d(-50%, -50%, 0) rotateX(0deg) rotateY(-25deg)
+    rotateZ(-120deg);
+    transform-style: preserve-3d;
+    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    user-select: none; 
+}
+
+.card {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    padding: 0;
+    filter: brightness(0.5);
+    transform: rotateX(20deg) rotateY(-10deg) rotateZ(122deg);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: -200px 0;
+    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.overlay-text {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    padding: 10px;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    width: 80%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px); 
+    opacity: 0;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease; /* Smooth transition for the text */
+    pointer-events: none; /* Ensure text doesn't interfere with mouse events */
+}
