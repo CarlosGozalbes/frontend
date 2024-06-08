@@ -1,0 +1,19 @@
+version: '3'
+services:
+
+  backend:
+    build:
+      context: ./backendexpress
+    container_name: backendexpress
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backendexpress:/app
+
+  apache:
+    image: httpd:latest
+    container_name: apache
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend/dist:/usr/local/apache2/htdocs/
