@@ -18,6 +18,7 @@ import NotLoggedRoute from "./auth/NotLoggedRoute";
 import LoggedRoute from "./auth/LoggedRoute";
 import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
 import AboutUsPage from "./pages/aboutUsPage/AboutUsPage";
+import DoctorRoute from "./auth/DoctorRoute";
 
 function App() {
   return (
@@ -30,20 +31,27 @@ function App() {
         <Route path="/signup" element={<NotLoggedRoute />}>
           <Route path="/signup" element={<SignupPage />} />
         </Route>
-        {/*  <Route path="/signup" element={<SignupPage />} /> */}
+
         <Route path="/searchDoctor" element={<SearchPage />} />
         <Route path="/doctor/:id" element={<DoctorPage />} />
         <Route
           path="/create-appointment/:start/:end/:id"
           element={<CreateAppointment />}
         />
-         <Route path="/myAppointments" element={<LoggedRoute />}>
+        <Route path="/myAppointments" element={<LoggedRoute />}>
           <Route path="/myAppointments" element={<MyDatesPage />} />
         </Route>
-      {/*   <Route path="/myAppointments" element={<MyDatesPage />} /> */}
-        <Route path="/myAppoinmentsDoctor" element={<MyPatientsPage />} />
-        <Route path="/searchPatient" element={<SearchPatientPage />} />
-        <Route path="/patient/:id" element={<PatientDatesPage />} />
+
+        <Route path="/myAppoinmentsDoctor" element={<DoctorRoute />}>
+          <Route path="/myAppoinmentsDoctor" element={<MyPatientsPage />} />
+        </Route>
+        <Route path="/searchPatient" element={<DoctorRoute />}>
+          <Route path="/searchPatient" element={<SearchPatientPage />} />
+        </Route>
+        <Route path="/patient/:id" element={<DoctorRoute />}>
+          <Route path="/patient/:id" element={<PatientDatesPage />} />
+        </Route>
+
         <Route
           path="/doctorCreateAppointment/:id"
           element={<CreateAppointmentDoctor />}

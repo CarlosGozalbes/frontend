@@ -41,7 +41,7 @@ function AppAppBar({ mode, toggleColorMode }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const { user, loading, error,setUser } = useUser();
+  const { user, loading, error, setUser } = useUser();
   const [token, setToken] = useToken();
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -62,13 +62,13 @@ function AppAppBar({ mode, toggleColorMode }) {
       setOpen(false);
     }
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleLogout = () => {
     // Clear token from local storage
-    handleCloseUserMenu() 
+    handleCloseUserMenu();
     setUser(null);
     localStorage.removeItem("token");
-   
+
     // Redirect to homepage
     navigate("/");
   };
@@ -116,145 +116,150 @@ function AppAppBar({ mode, toggleColorMode }) {
               }}
             >
               <Link to="/">
-              <img
-                src={"/imgs/logo.png"}
-                style={logoStyle}
-                alt="logo of sitemark"
-              /></Link>
+                <img
+                  src={"/imgs/logo.png"}
+                  style={logoStyle}
+                  alt="logo of sitemark"
+                />
+              </Link>
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <MenuItem
-                  onClick={() => scrollToSection("features")}
-                  sx={{ py: "6px", px: "12px" }}
-                >
-                  <Link to="/searchDoctor" style={{textDecoration:"none"}}>
-                  <Typography variant="body2" color="text.primary">
-                    Buscar medico
-                  </Typography>
+                <MenuItem sx={{ py: "6px", px: "12px" }}>
+                  <Link to="/searchDoctor" style={{ textDecoration: "none" }}>
+                    <Typography variant="body2" color="text.primary">
+                      Buscar medico
+                    </Typography>
                   </Link>
                 </MenuItem>
-                <MenuItem
-                  onClick={() => scrollToSection("features")}
-                  sx={{ py: "6px", px: "12px" }}
-                >
-                  <Link to="/aboutUs" style={{textDecoration:"none"}}>
-                  <Typography variant="body2" color="text.primary">
-                    Sobre Medimatch
-                  </Typography>
+                <MenuItem sx={{ py: "6px", px: "12px" }}>
+                  <Link to="/aboutUs" style={{ textDecoration: "none" }}>
+                    <Typography variant="body2" color="text.primary">
+                      Sobre Medimatch
+                    </Typography>
                   </Link>
                 </MenuItem>
-                {user && (     <MenuItem
-                  onClick={() => scrollToSection("features")}
-                  sx={{ py: "6px", px: "12px" }}
-                >
-                  <Link to="/myAppointments" style={{textDecoration:"none"}}>
-                  <Typography variant="body2" color="text.primary">
-                    Historial de citas
-                  </Typography>
-                  </Link>
-                </MenuItem>)}
-                {user?.role === "Doctor" && (     <MenuItem
-                  onClick={() => scrollToSection("features")}
-                  sx={{ py: "6px", px: "12px"}}
-                >
-                  <Link to="/myAppoinmentsDoctor" style={{textDecoration:"none"}}>
-                  <Typography variant="body2" color="text.primary">
-                   Citas de mis pacientes
-                  </Typography>
-                  </Link>
-                </MenuItem>)}
-                {user?.role === "Doctor" && (     <MenuItem
-                  onClick={() => scrollToSection("features")}
-                  sx={{ py: "6px", px: "12px" }}
-                >
-                  <Link to="/searchPatient" style={{textDecoration:"none"}}>
-                  <Typography variant="body2" color="text.primary">
-                   Buscar Paciente
-                  </Typography>
-                  </Link>
-                </MenuItem>)}
-                {user?.role === "Admin" && (     <MenuItem
-                  onClick={() => scrollToSection("features")}
-                  sx={{ py: "6px", px: "12px" }}
-                >
-                  <Link to="/adminUsers" style={{textDecoration:"none"}}>
-                  <Typography variant="body2" color="text.primary">
-                   Administrar Usuarios
-                  </Typography>
-                  </Link>
-                </MenuItem>)}
+                {user && (
+                  <MenuItem sx={{ py: "6px", px: "12px" }}>
+                    <Link
+                      to="/myAppointments"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Typography variant="body2" color="text.primary">
+                        Historial de citas
+                      </Typography>
+                    </Link>
+                  </MenuItem>
+                )}
+                {user?.role === "Doctor" && (
+                  <MenuItem sx={{ py: "6px", px: "12px" }}>
+                    <Link
+                      to="/myAppoinmentsDoctor"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Typography variant="body2" color="text.primary">
+                        Citas de mis pacientes
+                      </Typography>
+                    </Link>
+                  </MenuItem>
+                )}
+                {user?.role === "Doctor" && (
+                  <MenuItem sx={{ py: "6px", px: "12px" }}>
+                    <Link
+                      to="/searchPatient"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Typography variant="body2" color="text.primary">
+                        Buscar Paciente
+                      </Typography>
+                    </Link>
+                  </MenuItem>
+                )}
+                {user?.role === "Admin" && (
+                  <MenuItem sx={{ py: "6px", px: "12px" }}>
+                    <Link to="/adminUsers" style={{ textDecoration: "none" }}>
+                      <Typography variant="body2" color="text.primary">
+                        Administrar Usuarios
+                      </Typography>
+                    </Link>
+                  </MenuItem>
+                )}
               </Box>
             </Box>
-            <Box
-              sx={{
-                display: { xs: "none", md: "flex" },
-                gap: 0.5,
-                alignItems: "center",
-              }}
-            >
-              <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
-              {!user ? (
-                <>
-                  <Link to="/login" style={{ textDecoration: "none" }}>
-                    <Button color="primary" variant="text" size="small">
-                      Inicia sesion
-                    </Button>
-                  </Link>
-                  <Link to="/signup" style={{ textDecoration: "none" }}>
-                    <Button color="primary" variant="contained" size="small">
-                      Registrate
-                    </Button>
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <Tooltip title="Opciones de usuario">
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <Avatar
-                        alt="avatar user"
-                        src={user?.avatar}
-                      />
-                    </IconButton>
-                  </Tooltip>
-                  <Menu
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    <Link to="/profile" style={{textDecoration:"none"}}>
-                      <MenuItem key="perfil">
-                        <Typography
-                          sx={(theme) => ({
-                            color:
-                              theme.palette.mode === "light"
-                                ? "black"
-                                : "white",
-                            textDecoration: "none",
-                          })}
-                          onClick={handleCloseUserMenu}
-                          textAlign="center"
-                        >
-                          Perfil
-                        </Typography>
-                      </MenuItem>{" "}
+
+            {!loading && (
+              <Box
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  gap: 0.5,
+                  alignItems: "center",
+                }}
+              >
+                <ToggleColorMode
+                  mode={mode}
+                  toggleColorMode={toggleColorMode}
+                />
+                {!user ? (
+                  <>
+                    <Link to="/login" style={{ textDecoration: "none" }}>
+                      <Button color="primary" variant="text" size="small">
+                        Inicia sesion
+                      </Button>
                     </Link>
-                    <MenuItem key="cerrar sesion" onClick={handleLogout}>
-                      <Typography textAlign="center">Cerrar Sesion</Typography>
-                    </MenuItem>
-                  </Menu>
-                </>
-              )}
-            </Box>
+                    <Link to="/signup" style={{ textDecoration: "none" }}>
+                      <Button color="primary" variant="contained" size="small">
+                        Registrate
+                      </Button>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Tooltip title="Opciones de usuario">
+                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <Avatar alt="avatar user" src={user?.avatar} />
+                      </IconButton>
+                    </Tooltip>
+                    <Menu
+                      sx={{ mt: "45px" }}
+                      id="menu-appbar"
+                      anchorEl={anchorElUser}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      open={Boolean(anchorElUser)}
+                      onClose={handleCloseUserMenu}
+                    >
+                      <Link to="/profile" style={{ textDecoration: "none" }}>
+                        <MenuItem key="perfil">
+                          <Typography
+                            sx={(theme) => ({
+                              color:
+                                theme.palette.mode === "light"
+                                  ? "black"
+                                  : "white",
+                              textDecoration: "none",
+                            })}
+                            onClick={handleCloseUserMenu}
+                            textAlign="center"
+                          >
+                            Perfil
+                          </Typography>
+                        </MenuItem>
+                      </Link>
+                      <MenuItem key="cerrar sesion" onClick={handleLogout}>
+                        <Typography textAlign="center">
+                          Cerrar Sesion
+                        </Typography>
+                      </MenuItem>
+                    </Menu>
+                  </>
+                )}
+              </Box>
+            )}
             <Box sx={{ display: { sm: "", md: "none" } }}>
               <Button
                 variant="text"
@@ -287,77 +292,137 @@ function AppAppBar({ mode, toggleColorMode }) {
                       toggleColorMode={toggleColorMode}
                     />
                   </Box>
-                  <Link to="/searchDoctor" style={{textDecoration:"none"}}>
-                  <MenuItem  onClick={() => scrollToSection("features")}>
-                     <Typography variant="body2" color="text.primary">
-                    Buscar medico
-                  </Typography>
+                  <MenuItem sx={{ py: "6px", px: "12px" }}>
+                    <Link to="/searchDoctor" style={{ textDecoration: "none" }}>
+                      <Typography variant="body2" color="text.primary">
+                        Buscar medico
+                      </Typography>
+                    </Link>
                   </MenuItem>
-                  </Link>
-                 
+                  <MenuItem sx={{ py: "6px", px: "12px" }}>
+                    <Link to="/aboutUs" style={{ textDecoration: "none" }}>
+                      <Typography variant="body2" color="text.primary">
+                        Sobre Medimatch
+                      </Typography>
+                    </Link>
+                  </MenuItem>
+                  {user && (
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Link
+                        to="/myAppointments"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Typography variant="body2" color="text.primary">
+                          Historial de citas
+                        </Typography>
+                      </Link>
+                    </MenuItem>
+                  )}
+                  {user?.role === "Doctor" && (
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Link
+                        to="/myAppoinmentsDoctor"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Typography variant="body2" color="text.primary">
+                          Citas de mis pacientes
+                        </Typography>
+                      </Link>
+                    </MenuItem>
+                  )}
+                  {user?.role === "Doctor" && (
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Link
+                        to="/searchPatient"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Typography variant="body2" color="text.primary">
+                          Buscar Paciente
+                        </Typography>
+                      </Link>
+                    </MenuItem>
+                  )}
+                  {user?.role === "Admin" && (
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Link to="/adminUsers" style={{ textDecoration: "none" }}>
+                        <Typography variant="body2" color="text.primary">
+                          Administrar Usuarios
+                        </Typography>
+                      </Link>
+                    </MenuItem>
+                  )}
                   <Divider />
                   {!user ? (
-                <>
-                  <Link to="/login" style={{ textDecoration: "none" }}>
-                    <Button sx={{mt:3}} color="primary" variant="text" size="small">
-                      Inicia sesion
-                    </Button>
-                  </Link>
-                  <Link to="/signup" style={{ textDecoration: "none" }}>
-                    <Button  sx={{mt:3}} color="primary" variant="contained" size="small">
-                      Registrate
-                    </Button>
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <Tooltip title="Opciones de usuario">
-                    <IconButton onClick={handleOpenUserMenu} sx={{ m: 2 }}>
-                      <Avatar
-                        alt="avatar user"
-                        src={user?.avatar}
-                      />
-                    </IconButton>
-                  </Tooltip>
-                  <Menu
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    <Link to="/profile" style={{textDecoration:"none"}}>
-                      <MenuItem key="perfil">
-                        <Typography
-                          sx={(theme) => ({
-                            color:
-                              theme.palette.mode === "light"
-                                ? "black"
-                                : "white",
-                            textDecoration: "none",
-                          })}
-                          onClick={handleCloseUserMenu}
-                          textAlign="center"
+                    <>
+                      <Link to="/login" style={{ textDecoration: "none" }}>
+                        <Button
+                          sx={{ mt: 3 }}
+                          color="primary"
+                          variant="text"
+                          size="small"
                         >
-                          Perfil
-                        </Typography>
-                      </MenuItem>{" "}
-                    </Link>
-                    <MenuItem key="cerrar sesion" onClick={handleLogout}>
-                      <Typography textAlign="center">Cerrar Sesion</Typography>
-                    </MenuItem>
-                  </Menu>
-                </>
-              )}
+                          Inicia sesion
+                        </Button>
+                      </Link>
+                      <Link to="/signup" style={{ textDecoration: "none" }}>
+                        <Button
+                          sx={{ mt: 3 }}
+                          color="primary"
+                          variant="contained"
+                          size="small"
+                        >
+                          Registrate
+                        </Button>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Tooltip title="Opciones de usuario">
+                        <IconButton onClick={handleOpenUserMenu} sx={{ m: 2 }}>
+                          <Avatar alt="avatar user" src={user?.avatar} />
+                        </IconButton>
+                      </Tooltip>
+                      <Menu
+                        sx={{ mt: "45px" }}
+                        id="menu-appbar"
+                        anchorEl={anchorElUser}
+                        anchorOrigin={{
+                          vertical: "top",
+                          horizontal: "right",
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                          vertical: "top",
+                          horizontal: "right",
+                        }}
+                        open={Boolean(anchorElUser)}
+                        onClose={handleCloseUserMenu}
+                      >
+                        <Link to="/profile" style={{ textDecoration: "none" }}>
+                          <MenuItem key="perfil">
+                            <Typography
+                              sx={(theme) => ({
+                                color:
+                                  theme.palette.mode === "light"
+                                    ? "black"
+                                    : "white",
+                                textDecoration: "none",
+                              })}
+                              onClick={handleCloseUserMenu}
+                              textAlign="center"
+                            >
+                              Perfil
+                            </Typography>
+                          </MenuItem>{" "}
+                        </Link>
+                        <MenuItem key="cerrar sesion" onClick={handleLogout}>
+                          <Typography textAlign="center">
+                            Cerrar Sesion
+                          </Typography>
+                        </MenuItem>
+                      </Menu>
+                    </>
+                  )}
                 </Box>
               </Drawer>
             </Box>
