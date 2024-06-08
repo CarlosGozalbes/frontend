@@ -151,11 +151,12 @@ export default function SignUpStep2({ setStep, formData, setFormData }) {
 
   // Doctor-specific validations
   if (isDoctor) {
+    console.log(formData);
     if (
       !formData.infoDoctor.description ||
       !formData.infoDoctor.specialization ||
-      !formData.infoDoctor.center ||
-      !formData.infoDoctor.iframeSrc
+      !formData.address.center ||
+      !formData.address.iframeSrc
     ) {
       setError("Por favor, rellene todos los campos");
       setLoading(false);

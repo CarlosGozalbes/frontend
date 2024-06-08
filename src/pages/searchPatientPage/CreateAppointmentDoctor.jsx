@@ -315,7 +315,7 @@ function CreateAppointmentDoctor() {
                     >
                       <Avatar
                         alt="Avatar doctor"
-                        src={`${doctorInfo?.avatar}`}
+                        src={`${patientInfo?.avatar}`}
                         sx={{ width: 150, height: 150, mb: 3 }}
                       />
                     </div>
