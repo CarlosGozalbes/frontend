@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import ToggleColorMode from "./ToggleColorMode";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUser } from "../auth/useUser";
 import { useToken } from "../auth/useToken";
 import { useEffect } from "react";
@@ -46,9 +46,7 @@ function AppAppBar({ mode, toggleColorMode }) {
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
-  useEffect(() => {
-    console.log(user);
-  }, []);
+  useEffect(() => {}, [user, loading]);
   const scrollToSection = (sectionId) => {
     const sectionElement = document.getElementById(sectionId);
     const offset = 128;
@@ -72,6 +70,7 @@ function AppAppBar({ mode, toggleColorMode }) {
     // Redirect to homepage
     navigate("/");
   };
+
   return (
     <div>
       <AppBar
@@ -185,81 +184,75 @@ function AppAppBar({ mode, toggleColorMode }) {
               </Box>
             </Box>
 
-            {!loading && (
-              <Box
-                sx={{
-                  display: { xs: "none", md: "flex" },
-                  gap: 0.5,
-                  alignItems: "center",
-                }}
-              >
-                <ToggleColorMode
-                  mode={mode}
-                  toggleColorMode={toggleColorMode}
-                />
-                {!user ? (
-                  <>
-                    <Link to="/login" style={{ textDecoration: "none" }}>
-                      <Button color="primary" variant="text" size="small">
-                        Inicia sesion
-                      </Button>
-                    </Link>
-                    <Link to="/signup" style={{ textDecoration: "none" }}>
-                      <Button color="primary" variant="contained" size="small">
-                        Registrate
-                      </Button>
-                    </Link>
-                  </>
-                ) : (
-                  <>
-                    <Tooltip title="Opciones de usuario">
-                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar alt="avatar user" src={user?.avatar} />
-                      </IconButton>
-                    </Tooltip>
-                    <Menu
-                      sx={{ mt: "45px" }}
-                      id="menu-appbar"
-                      anchorEl={anchorElUser}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      keepMounted
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      open={Boolean(anchorElUser)}
-                      onClose={handleCloseUserMenu}
-                    >
-                      <Link to="/profile" style={{ textDecoration: "none" }}>
-                        <MenuItem key="perfil">
-                          <Typography
-                            sx={(theme) => ({
-                              color:
-                                theme.palette.mode === "light"
-                                  ? "black"
-                                  : "white",
-                              textDecoration: "none",
-                            })}
-                            onClick={handleCloseUserMenu}
-                            textAlign="center"
-                          >
-                            Perfil
-                          </Typography>
-                        </MenuItem>
-                      </Link>
-                      <MenuItem key="cerrar sesion" onClick={handleLogout}>
-                        <Typography textAlign="center">
-                          Cerrar Sesion
+            <Box
+              sx={{
+                display: { xs: "none", md: "flex" },
+                gap: 0.5,
+                alignItems: "center",
+              }}
+            >
+              <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
+              {!user ? (
+                <>
+                  <Link to="/login" style={{ textDecoration: "none" }}>
+                    <Button color="primary" variant="text" size="small">
+                      Inicia sesion
+                    </Button>
+                  </Link>
+                  <Link to="/signup" style={{ textDecoration: "none" }}>
+                    <Button color="primary" variant="contained" size="small">
+                      Registrate
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Tooltip title="Opciones de usuario">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar alt="avatar user" src={user?.avatar} />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    <Link to="/profile" style={{ textDecoration: "none" }}>
+                      <MenuItem key="perfil">
+                        <Typography
+                          sx={(theme) => ({
+                            color:
+                              theme.palette.mode === "light"
+                                ? "black"
+                                : "white",
+                            textDecoration: "none",
+                          })}
+                          onClick={handleCloseUserMenu}
+                          textAlign="center"
+                        >
+                          Perfil
                         </Typography>
                       </MenuItem>
-                    </Menu>
-                  </>
-                )}
-              </Box>
-            )}
+                    </Link>
+                    <MenuItem key="cerrar sesion" onClick={handleLogout}>
+                      <Typography textAlign="center">Cerrar Sesion</Typography>
+                    </MenuItem>
+                  </Menu>
+                </>
+              )}
+            </Box>
+
             <Box sx={{ display: { sm: "", md: "none" } }}>
               <Button
                 variant="text"

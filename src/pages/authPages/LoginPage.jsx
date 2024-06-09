@@ -15,6 +15,7 @@ import { Navigate, Link as RouterLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useToken } from "../../auth/useToken";
+import { useUser } from "../../auth/useUser";
 function Copyright(props) {
   return (
     <Typography
@@ -67,14 +68,11 @@ export default function LoginPage() {
         password,
       });
       const { accessToken } = response.data;
-      setToken(accessToken);
-      // Store the token in localStorage or state, then redirect to a protected route
-      // For example, you can setToken(token) and then redirect to the dashboard page
-      console.log("Login successful!");
-      console.log("Token:", accessToken);
-      navigate("/");
-      // Redirect to dashboard or another protected route
-      // history.push('/dashboard');
+      setToken(accessToken);    
+
+        navigate("/");
+    
+      
     } catch (error) {
       console.error("Error logging in:", error);
       // Display error message using SweetAlert
