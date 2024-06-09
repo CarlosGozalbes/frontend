@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Container,
-  CssBaseline,
+ 
   Divider,
   Grid,
   Typography,
-  ThemeProvider,
-  createTheme,
+ 
   alpha,
   TextField,
   FormControl,
@@ -25,7 +24,7 @@ import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAuto
 import { styled } from "@mui/system";
 import { insuranceCompanies } from "../../data/data";
 import { useNavigate, useParams } from "react-router-dom";
-import AppAppBar from "../../components/AppAppBar"; // Adjust the import based on your project structure
+
 import CalendarDoctor from "./components/CalendarDoctor"; // Adjust the import based on your project structure
 import Footer from "../landingPage/components/Footer"; // Adjust the import based on your project structure
 import { useUser } from "../../auth/useUser";
@@ -105,7 +104,7 @@ function CreateAppointmentDoctor() {
   const {id} = useParams();
   const [patientInfo, setPatientInfo] = useState(null);
   const [doctorInfo, setDoctorInfo] = useState(null);
-  const [mode, setMode] = useState("light");
+
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     insurance: "",
@@ -121,7 +120,7 @@ function CreateAppointmentDoctor() {
     });
   };
   const [duration, setDuration] = useState(15);
-  const defaultTheme = createTheme({ palette: { mode } });
+  
   const handleDurationChange = (event) => {
     const value = event.target.value;
     // Ensure the value is an integer
@@ -164,9 +163,7 @@ function CreateAppointmentDoctor() {
     fetchDoctorInfo();
   }, [user, duration]);
 
-  const toggleColorMode = () => {
-    setMode((prev) => (prev === "dark" ? "light" : "dark"));
-  };
+
 
   // Render a loading indicator or some placeholder while fetching the user and doctor info
   const handleSubmit = async () => {
@@ -234,9 +231,7 @@ function CreateAppointmentDoctor() {
     return formattedDate.slice(0, -5); // Remove the last 4 characters
   };
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
-      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
+   
       <Box
         style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
       >
@@ -488,7 +483,7 @@ function CreateAppointmentDoctor() {
         <Divider />
         <Footer />
       </Box>
-    </ThemeProvider>
+   
   );
 }
 

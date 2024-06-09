@@ -11,9 +11,11 @@ import {
 } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { useTheme } from "@emotion/react";
 
 
 const SearchBar = ({ nameSearch, setNameSearch, handleSearch }) => {
+  const theme = useTheme();
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box

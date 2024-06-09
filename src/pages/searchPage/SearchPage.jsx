@@ -13,7 +13,7 @@ import { useUser } from "../../auth/useUser";
 
 function SearchPage() {
   const {user,loading} = useUser()
-  const [mode, setMode] = useState("light");
+
   const [filterForm, setFilterForm] = useState({
     name: "",
     city: "",
@@ -21,7 +21,7 @@ function SearchPage() {
     startDate: null,
     endDate: null,
   });
-  const defaultTheme = createTheme({ palette: { mode } });
+ 
   const [doctors, setDoctors] = useState([]);
   const [error, setError] = useState("");
   const [filteredDoctors, setFilteredDoctors] = useState([]);
@@ -69,16 +69,12 @@ useEffect(() => {
 
     fetchDoctors();
   }, [loading]);
-  const toggleColorMode = () => {
-    setMode((prev) => (prev === "dark" ? "light" : "dark"));
-  };
+ 
   if (loading) {
     return <div>Loading...</div>;
   }
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
-      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
+
       <Box
         style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
       >
@@ -90,7 +86,7 @@ useEffect(() => {
         <Divider />
         <Footer />
       </Box>
-    </ThemeProvider>
+   
   );
 }
 

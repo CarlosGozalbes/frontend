@@ -1,6 +1,4 @@
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import AppAppBar from "../../components/AppAppBar";
+
 import SearchBar from "./components/SearchBar";
 import { Box, Divider } from "@mui/material";
 import Footer from "../landingPage/components/Footer";
@@ -12,11 +10,11 @@ import { useToken } from "../../auth/useToken";
 
 function SearchPatientPage() {
   const [token,setToken] = useToken()
-  const [mode, setMode] = useState("light");
+ 
   const [nameSearch, setNameSearch] = useState(
     ""
   );
-  const defaultTheme = createTheme({ palette: { mode } });
+ 
   const [patients, setPatients] = useState([]);
   const [error, setError] = useState("");
   const [filteredPatients, setFilteredPatients] = useState([]);
@@ -52,13 +50,9 @@ useEffect(() => {
 
     fetchDoctors();
   }, []);
-  const toggleColorMode = () => {
-    setMode((prev) => (prev === "dark" ? "light" : "dark"));
-  };
+  
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
-      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
+    
       <Box
         style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
       >
@@ -70,7 +64,7 @@ useEffect(() => {
         <Divider />
         <Footer />
       </Box>
-    </ThemeProvider>
+ 
   );
 }
 

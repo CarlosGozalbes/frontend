@@ -1,5 +1,6 @@
 import "./App.css";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import LandingPage from "./pages/landingPage/LandingPage";
 import LoginPage from "./pages/authPages/LoginPage";
 import SignupPage from "./pages/authPages/SignUpPage";
@@ -20,9 +21,22 @@ import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
 import AboutUsPage from "./pages/aboutUsPage/AboutUsPage";
 import DoctorRoute from "./auth/DoctorRoute";
 
+import CssBaseline from "@mui/material/CssBaseline";
+import AppAppBar from "./components/AppAppBar";
+import React from "react";
 function App() {
+  const [mode, setMode] = React.useState("light");
+
+  const defaultTheme = createTheme({ palette: { mode } });
+
+  const toggleColorMode = () => {
+    setMode((prev) => (prev === "dark" ? "light" : "dark"));
+  };
   return (
-    <Router>
+   
+    <Router> <ThemeProvider theme={defaultTheme}>
+    <CssBaseline />
+    <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<NotLoggedRoute />}>
@@ -64,8 +78,10 @@ function App() {
         </Route>
         <Route path="/aboutUs" element={<AboutUsPage />} />
         <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      </Routes></ThemeProvider>
     </Router>
+    
+    
   );
 }
 

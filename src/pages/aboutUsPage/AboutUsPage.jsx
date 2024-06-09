@@ -27,7 +27,7 @@ const handleMouseOut = (e) => {
   e.currentTarget.querySelector(".overlay-text").style.opacity = "0";
 };
 function AboutUsPage() {
-  const [mode, setMode] = useState("light");
+
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -41,15 +41,9 @@ function AboutUsPage() {
     };
     
   }, []);
-  const defaultTheme = createTheme({ palette: { mode } });
-
-  const toggleColorMode = () => {
-    setMode((prev) => (prev === "dark" ? "light" : "dark"));
-  };
+ 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
-      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
+    
       <Box
         style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
       >
@@ -347,7 +341,7 @@ function AboutUsPage() {
           </div>
         </Box>
       </Box>
-    </ThemeProvider>
+    
   );
 }
 
